@@ -8,6 +8,19 @@ The goal of these assignment is to make sure we fully comprehend (and are able t
 the creation of processes with Unix-like operating systems. To this end we will be using the 
 fork() system call. We will also be going over other system calls such as execuve() and 
 waitpid() and getpid()
+
+-----------------------------------------------------------------------------------------------
+
+Running My Code:
+
+I have provided a makefile. to compile all the programs run "make" in the terminal
+to execute assignment1  type "make runAssignment1" in the terminal. (see the assignment1 section for user input details)
+to execute assignment2  type "make runAssignment2" in the terminal. 
+to execute assignment3  type "make runAssignment3" in the terminal. 
+to execute assignment4  type "make runAssignment4" in the terminal. 
+After you're done you can type "make clean" to remove all the executables 
+
+
 -----------------------------------------------------------------------------------------------
 
 File Name: assignment1.c
@@ -26,7 +39,7 @@ program
 		execve(const char *filename, char *const argv[], char *const envp[]);
 
 
-	TO TEST:
+TO TEST:
 	Create a helloworld.c file with this code:
 
 	#include <stdio.h>
@@ -40,6 +53,16 @@ program
 
 	Compile this program, and when it prompts you for Enter Executable File Name:
 	Type "helloworld" , or whatever executable of a program you want to run
+
+Expected Output:
+	make runAssignment1
+	./assignment1
+
+	Enter Executable File Name: helloworld
+	Hello World
+
+	Enter Executable File Name: exit
+
 -----------------------------------------------------------------------------------------------
 File Name: assignment2.c
 
@@ -64,6 +87,41 @@ child process, until there are 8 total processes
       0                                1
       |
       0                                1    Sum = 8
+
+Testing Process: each Child will print out when it was created and its id as well as its parents
+Expected(ish) Output:
+
+Expected Output:
+	make runAssignment2
+	./assignment2
+	This is the initial process
+	Initial Process PID: 28417 
+	Created child process number: 1 
+	Child  PID: 28418 
+	Parent PID: 28417 
+	Created child process number: 2 
+	Child  PID: 28419 
+	Parent PID: 28418 
+	Created child process number: 3 
+	Child  PID: 28420 
+	Parent PID: 28419 
+	Created child process number: 4 
+	Child  PID: 28421 
+	Parent PID: 28420 
+	Created child process number: 5 
+	Child  PID: 28422 
+	Parent PID: 28421 
+	Created child process number: 6 
+	Child  PID: 28423 
+	Parent PID: 28422 
+	Created child process number: 7 
+	Child  PID: 28424 
+	Parent PID: 28423 
+
+	Printing from last child
+	Total Processses : 8
+
+
 -----------------------------------------------------------------------------------------------
 
 File Name: assignment3.c
@@ -80,7 +138,7 @@ The Initial Process (first gen) will Create 3 Children. The second gen will crea
 Only one child in the third gen will create 2 children
 
 Illustration:
-                     0                       	1
+                     0						 	1
             /        |        \	
            0         0         0				3
         /     \    /   \     /   \  
@@ -88,6 +146,24 @@ Illustration:
                                 /   \
                                0     0 			2     Sum = 12
 
+ To Test: Compile and Run Code. Whenever a process is created, it will print out something.
+ To verify 12 processes have been created, count the number of print statements
+
+ Expected Output(isn):
+	make runAssignment3
+	./assignment3
+	Initial Process, Generation 1
+	Created child, Generation: 2 
+	Created child, Generation: 2 
+	Created child, Generation: 2 
+	Created child, Generation: 3 
+	Created child, Generation: 3 
+	Created child, Generation: 3 
+	Created child, Generation: 3 
+	Created child, Generation: 4 
+	Created child, Generation: 3 
+	Created child, Generation: 4 
+	Created child, Generation: 3
 -----------------------------------------------------------------------------------------------
 
 File Name: assignment4.c
@@ -111,3 +187,26 @@ Illustration:
   0    0    0   0    0    0   0   0   0          9
                                     / | \
                	                   0  0  0       3       Sum = 16
+
+ To Test: Compile and Run Code. Whenever a process is created, it will print out something.
+ To verify 16 processes have been created, count the number of print statements
+
+Expected Output(isn):
+	make runAssignment4
+	./assignment4
+	Initial Process, Generation 1
+	Created child, Generation: 2 
+	Created child, Generation: 2 
+	Created child, Generation: 3 
+	Created child, Generation: 3 
+	Created child, Generation: 2 
+	Created child, Generation: 3 
+	Created child, Generation: 3 
+	Created child, Generation: 3 
+	Created child, Generation: 3 
+	Created child, Generation: 3 
+	Created child, Generation: 3 
+	Created child, Generation: 3 
+	Created child, Generation: 4 
+	Created child, Generation: 4 
+	Created child, Generation: 4 
