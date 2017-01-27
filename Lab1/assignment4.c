@@ -18,12 +18,12 @@ The Initial Process (first gen) will Create 3 Children. The second gen will crea
 Only one child in the third gen will create 2 children
 
 Illustration:
-					 O                           1
-		/            |     	     \
-	   0             0            0              3
+                     O                           1
+        /            |     	     \
+       0             0            0              3
    /   |   \     /   |   \     /  |  \  
   0    0    0   0    0    0   0   0   0          9
-	                                / | \
+                                    / | \
                	                   0  0  0       3       Sum = 16
 
 */
