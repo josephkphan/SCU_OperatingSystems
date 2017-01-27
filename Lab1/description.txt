@@ -1,0 +1,113 @@
+Created By Joseph Phan
+Coen 177 Operating Systems
+
+
+Lab1 Description:
+
+The goal of these assignment is to make sure we fully comprehend (and are able to realize) 
+the creation of processes with Unix-like operating systems. To this end we will be using the 
+fork() system call. We will also be going over other system calls such as execuve() and 
+waitpid() and getpid()
+-----------------------------------------------------------------------------------------------
+
+File Name: assignment1.c
+
+File Description: This is a simple shell program that willterminate if the user enters “exit” 
+at the command line. It will launch a  program in response to any other 
+input string. The program that will be launched here is a simple “hello world”
+program
+			
+		waitpid(pid_t pid, int *status, int options);
+		< -1: Wait for any child process whose process group ID is equal to the absolute value of pid.
+		-1: Wait for any child process.
+		0: Wait for any child process whose process group ID is equal to that of the calling process.
+		> 0: Wait for the child whose process ID is equal to the value of pid.
+
+		execve(const char *filename, char *const argv[], char *const envp[]);
+
+
+	TO TEST:
+	Create a helloworld.c file with this code:
+
+	#include <stdio.h>
+
+	int main()
+	{
+	    printf("Hello World\n");
+	    return 0;
+
+	Compile it gcc -0 helloworld helloworld.c
+
+	Compile this program, and when it prompts you for Enter Executable File Name:
+	Type "helloworld" , or whatever executable of a program you want to run
+-----------------------------------------------------------------------------------------------
+File Name: assignment2.c
+
+File Description: This program creates exactly eight child processes (including 
+the initial program itself). No single process to create more than two child processes.
+
+My Implementation: The Initial program will create one child process, and that process will create one
+child process, until there are 8 total processes
+
+      0	Initial process                1
+      |
+      0 Child                          1
+      |
+      0 grandchild                     1
+      |
+      0 grandgrandchild                1
+      |
+      0 G3 child                       1
+      |
+      0 ... you get the memo           1
+      |
+      0                                1
+      |
+      0                                1    Sum = 8
+-----------------------------------------------------------------------------------------------
+
+File Name: assignment3.c
+
+File Description This Program when launched, will result in a total of twelve child processes to run. 
+any single process which  creates children creates at least two child processes, but no more than three.
+In other words There is maximum of three child processes directly, and any other “children” will have to be 
+created by the children of this parent process (subject to the restriction of only creating two or three 
+processes each). Once again, any process that creates other processes must create either two or three 
+processes only, no more and no less.
+
+My Implementation: 
+The Initial Process (first gen) will Create 3 Children. The second gen will create 3 childrens each.
+Only one child in the third gen will create 2 children
+
+Illustration:
+					 0                       	1
+			/        |  	  \	
+		   0         0         0				3
+		/     \    /   \     /   \  
+	   0       0   0    0    0    0				6
+	                            /   \
+               	               0     0 			2     Sum = 12
+
+-----------------------------------------------------------------------------------------------
+
+File Name: assignment4.c
+
+File Description This Program when launched, will result in a total of 16 child processes to run. 
+any single process which  creates children creates at least two child processes, but no more than three.
+In other words There is maximum of three child processes directly, and any other “children” will have to be 
+created by the children of this parent process (subject to the restriction of only creating two or three 
+processes each). Once again, any process that creates other processes must create either two or three 
+processes only, no more and no less.
+
+My Implementation: 
+The Initial Process (first gen) will Create 3 Children. The second gen will create 3 childrens each.
+Only one child in the third gen will create 2 children
+
+Illustration:
+					 O                           1
+		/            |     	     \
+	   0             0            0              3
+   /   |   \     /   |   \     /  |  \  
+  0    0    0   0    0    0   0   0   0          9
+	                                / | \
+               	                   0  0  0       3       Sum = 16
