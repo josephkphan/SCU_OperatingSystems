@@ -45,11 +45,12 @@ int main () {
 	int current_generation = 1;
 	int is__last_child_second_generation = false;
 	int is_last_child_third_generation = false;
+	printf("PAPA !Child  PID: %d | Parent PID: %d \n", getpid(),getppid());
 	while (1){
 		switch(current_generation){
 			case 1:
 			//First Generation ( initial Process)
-				for(int i=0; i<3; i++){	
+				for(i=0; i<3; i++){	
 				// Create 3 child processes
 					if(i==2)
 					//On the last child "mark him with this last_child_boolean" - so he's different
@@ -61,25 +62,23 @@ int main () {
 						printf("Error Creating Child");
 					}else if (result != 0) {
 					// This is a parent process
-						if(i==0)	//So it only prints once
-							printf("Initial Process, Generation %d\n",current_generation);
-						else if(i==2){
+						if(i==2){
 						//After you created all your children, wait for them to die
-							waitpid(-1, &status, 0);
+							wait(NULL);
 						//... Then you die with then... romeo juliet story here...
 							exit(0);
 						}	
 					} else {
 					// This is a child process. Increase their Generation
+						printf("Child  PID: %d | Parent PID: %d \n", getpid(),getppid());
 						current_generation++;
-						printf("Created child, Generation: %d \n",current_generation);
 						break;
 					}
 				}
 				break;
 			case 2:
 			//Second Generation Children
-				for(int i=0; i<2; i++){
+				for(i=0; i<2; i++){
 				//Each Second Generation will create 2 childen... that was fast...
 					result = fork();
 					if(is__last_child_second_generation && i==1)
@@ -91,13 +90,13 @@ int main () {
 					}else if (result != 0) {
 					//child is now a parent!! 
 						if(i==1){
-							waitpid(-1, &status, 0);
+							wait(NULL);
 							exit(0);
 						}	
 					} else {
 					// This is a grandchild process
 						current_generation++;
-						printf("Created child, Generation: %d \n",current_generation);
+						printf("Child  PID: %d | Parent PID: %d \n", getpid(),getppid());
 						break;
 					}
 				}
@@ -105,7 +104,7 @@ int main () {
 			case 3:
 				if(is_last_child_third_generation){
 				//only the last child should have children
-					for(int i=0; i<2; i++){
+					for(i=0; i<2; i++){
 						result = fork();
 						// Handle Error
 						if (result == -1) {
@@ -113,13 +112,13 @@ int main () {
 						}else if (result != 0) {
 						// This is a parent process
 							if(i==1){
-								waitpid(-1, &status, 0);
+								wait(NULL);
 								exit(0);
 							}	
 						} else {
 						// This is a child process
 							current_generation++;
-							printf("Created child, Generation: %d \n",current_generation);
+							printf("Child  PID: %d | Parent PID: %d \n", getpid(),getppid());
 							break;
 						}
 					}

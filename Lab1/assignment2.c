@@ -61,8 +61,7 @@ int main () {
 		// This is a child process
 			is_initial_process = false;
 			printf("Created child process number: %d \n", i+1);
-			printf("Child  PID: %d \n", getpid());
-			printf("Parent PID: %d \n", getppid());
+			printf("Child  PID: %d | Parent PID: %d \n", getpid(),getppid());
 		}
 		
 	}
